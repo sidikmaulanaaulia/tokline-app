@@ -1,0 +1,13 @@
+#main {
+    color: black;
+    text-decoration: none;
+}
+
+#main:hover {
+    color: tomato;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: tomato;
+}

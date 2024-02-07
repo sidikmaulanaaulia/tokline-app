@@ -1,0 +1,97 @@
+nyari data bedasarkan apakai
+User::Where()->get ini untuk mengambil semua data
+User::Where()->first ini untuk mengambil satu data
+
+
+eloqunt pada laravel
+Filling Model dengan Data:
+Isi model dengan data dan gunakan Eloquent untuk menyimpannya ke basis data:
+-$article = new Article;
+$article->title = $request->title;
+$article->content = $request->content;
+$article->save();
+
+Mengambil Data:
+Menggunakan Eloquent untuk mengambil data dari basis data:
+$articles = Article::all();
+
+Query Builder:
+Gunakan Query Builder untuk query yang lebih kompleks:
+$articles = Article::where('published', true)->orderBy('created_at', 'desc')->get();
+
+php artisan make:resource ArticleResource
+Eloquent API Resource:
+// Di dalam file ArticleResource.php
+public function toArray($request)
+{
+return [
+'title' => $this->title,
+'content' => $this->content,
+'created_at' => $this->created_at,
+// Tambahkan data lain yang ingin Anda sertakan
+];
+}
+
+// Di dalam file ArticleController.php
+use App\Http\Resources\ArticleResource;
+
+Mengirimkan Data melalui API Controller:
+Gunakan API Resource dalam controller untuk mengirimkan data melalui API:
+public function show($id)
+{
+$article = Article::findOrFail($id);
+return new ArticleResource($article);
+}
+
+Menggunakan Collection Resource:
+Jika Anda mengirimkan koleksi (collection) data, Anda dapat menggunakan Collection Resource:
+// Di dalam file ArticleController.php
+use App\Http\Resources\ArticleResource;
+
+public function index()
+{
+$articles = Article::all();
+return ArticleResource::collection($articles);
+}
+
+
+
+project selanjutnya
+Sistem Pemesanan Online:
+-Bangun platform untuk pemesanan online, misalnya, reservasi restoran atau tempat parkir. Sertakan integrasi pembayaran
+dan fitur reservasi.
+sistem aplikasi berbasis API
+-eventaris
+website rental mobil
+selesai dalam 2 bulan
+
+
+nama penerima
+no telepone
+alamat
+metode pembayaran
+kota
+quantity
+nama produk
+jasa kirim
+Paket
+estimasi
+
+ongkir
+total_pemesanan
+
+
+
+order
+-lihat pesanan
+-konfirmasi pesanan
+-pembatalan pesanan
+-ubah status pesanan
+
+hal yang belum di pelajari
+mengelolah server dan infastuktur
+keamanan aplikasi
+caching
+logging dan monitoring
+desain arsitektur microservice
+menajemen proyek
