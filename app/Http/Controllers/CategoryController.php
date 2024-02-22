@@ -8,16 +8,16 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    public function index(){
+    public function show(){
         $data = Category::all();
         return view('admin.dashboard.category', compact('data'));
     }
 
-    public function tambahKategori(){
+    public function create(){
         return view('admin.dashboard.tambahKategori');
     }
 
-  public function tambahDataKategori(Request $request){
+  public function store(Request $request){
     $validatedData = $request->validate([
         'nama_kategori' => 'required',
         'deskripsi_kategori' => 'required',
@@ -31,14 +31,8 @@ class CategoryController extends Controller
     return redirect('/tambah-kategori')->with('success', 'Data Berhasil Ditambahkan');
 }
 
-public function hapusDataKategori($id){
-    $data = Category::find($id);
-    $data->delete();
-    return redirect('/produk/kategori')->with('success','Data Berhasil Di Hapus');
 
-}
-
-public function updateCategory($slug){
+public function edit($slug){
     $data = Category::where('slug', $slug)->first();
     return view('admin.dashboard.editKategori', compact('data'));
 
@@ -70,5 +64,12 @@ public function update(Request $request, $id)
     return redirect("edit-kategori/{$newSlug}")->with('success', 'Data berhasil diperbarui');
 }
 
+
+public function destroy($id){
+    $data = Category::find($id);
+    $data->delete();
+    return redirect('/produk/kategori')->with('success','Data Berhasil Di Hapus');
+
+}
 
 }

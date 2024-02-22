@@ -17,7 +17,7 @@ use Carbon\Carbon;
 
 class PemesananController extends Controller
 {
-    public function index($slug){
+    public function show($slug){
 
         $user = Auth::user();
         $produk = Produk::where('slug', $slug)->first();

@@ -8,13 +8,13 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    public function index(){
+    public function show(){
         $data = Produk::with('category','produk_size')->orderBy('id', 'desc')->get();
         return view('admin.dashboard.produk' , compact('data'));
 
     }
 
-    public function tambahProduk(){
+    public function create(){
         $data = Category::get()->all();
         return view('admin.dashboard.tambahProduk',compact('data'));
     }
@@ -49,7 +49,7 @@ public function store(Request $request) {
     }
 }
 
-public function delete($id){
+public function destroy($id){
     $data = Produk::find($id);
     $imagePath = public_path('storage/uploads/' . $data->gambar); // Path gambar di storage
     if (file_exists($imagePath)) {
@@ -59,13 +59,13 @@ public function delete($id){
     return redirect('/produk')->with('success','Data Berhasil Di Delete');
 }
 
-public function update($slug){
+public function edit($slug){
     $produk = Produk::where('slug',$slug)->first();
     $category = Category::all();
     return view('admin.dashboard.editProduk', compact('produk','category'));
 }
 
-public function updateProduk(Request $request, $id){
+public function update(Request $request, $id){
     $produk = Produk::find($id);
     $slug = $produk->slug;
 

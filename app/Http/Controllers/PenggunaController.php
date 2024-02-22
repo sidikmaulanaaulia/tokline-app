@@ -9,16 +9,16 @@ use Illuminate\Http\RedirectResponse;
 
 class PenggunaController extends Controller
 {
-    public function index(){
+    public function show(){
         $data = User::all();
         return view('admin.dashboard.pengguna',compact('data'));
     }
 
-    public function tambahPengguna(){
+    public function create(){
         return view('admin.dashboard.tambahPengguna');
     }
 
-    public function tambahDataPengguna(Request $request){
+    public function store(Request $request){
         $validatedData = $request->validate([
             'nama' => 'required|min:6|max:100',
             'password' => 'required|min:6|max:100',
@@ -37,13 +37,13 @@ class PenggunaController extends Controller
         }
     }
 
-    public function editPengguna($id){
+    public function edit($id){
         $data = User::find($id);
         return view('admin.dashboard.editPengguna',compact('data'));
 
     }
 
-    public function editDataPengguna(Request $request,$id){
+    public function update(Request $request,$id){
         $data = User::find($id);
         $validatedData = $request->validate([
             'nama' => 'required|min:6|max:100',
@@ -61,7 +61,7 @@ class PenggunaController extends Controller
         }
     }
 
-    public function hapusPengguna($id){
+    public function destroy($id){
         $request = User::find($id);
         $result = $request->delete();
         if($result){
@@ -69,6 +69,6 @@ class PenggunaController extends Controller
         }else{
             return redirect('/pengguna')->with('error','data berhasil di hapus');
         }
-        
+
 }
 }

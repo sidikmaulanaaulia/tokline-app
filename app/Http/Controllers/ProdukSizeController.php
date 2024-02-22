@@ -10,7 +10,7 @@ class ProdukSizeController extends Controller
 
 {
 
-    public function index($id){
+    public function show($id){
         $produkSize = Produk_size::where('produk_id',$id)->first();
         $produk = Produk::findOrFail($id);
         return view('admin.dashboard.produkSize', compact('produkSize','produk'));

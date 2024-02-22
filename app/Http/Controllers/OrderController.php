@@ -7,7 +7,7 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
-    public function index(){
+    public function show(){
         $data = Order::with('produk')->orderBy('id', 'desc')
         ->get();
         return view('admin.dashboard.order', compact('data'));

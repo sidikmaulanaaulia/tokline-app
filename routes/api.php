@@ -18,4 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//payment gateway midtrans
 Route::post('/midtrans-callback', [userPesananSayaController::class, 'callback']);

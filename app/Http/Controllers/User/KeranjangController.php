@@ -12,7 +12,7 @@ use App\Models\User;
 class KeranjangController extends Controller
 {
 
-  public function index()
+  public function show()
     {
         if (Auth::check()) {
             $user = Auth::user();
@@ -22,7 +22,7 @@ class KeranjangController extends Controller
         }
     }
 
-    public function delete($id){
+    public function destroy($id){
         $data = Keranjang::find($id);
          $data->delete();
          return redirect("/keranjang")->with('success','1 Produk Telah Di hapus');

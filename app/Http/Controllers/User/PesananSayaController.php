@@ -11,7 +11,7 @@ use App\Models\Produk;
 
 class PesananSayaController extends Controller
 {
-    public function index(){
+    public function show(){
         $id_user = Auth::id();
         $belumBayar = Order::where('user_id', $id_user)
               ->where('status', 'Unpaid')
