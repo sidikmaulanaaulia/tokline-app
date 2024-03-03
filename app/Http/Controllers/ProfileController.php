@@ -66,4 +66,6 @@ class ProfileController extends Controller
          return response()->json(['message' => 'Gagal memperbarui password'], 422);
 
     }
+
+    
 }

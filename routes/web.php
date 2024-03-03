@@ -58,12 +58,13 @@ Route::post('/edit-kategori/{id}',[CategoryController::class ,'update']);
 Route::get('/hapus-data-kategori/{id}',[CategoryController::class ,'destroy']);
 
 //pengguna
-Route::get('/pengguna',[PenggunaController::class ,'index']);
+Route::get('/pengguna',[PenggunaController::class ,'show']);
 Route::get('/pengguna/tambah-pengguna',[PenggunaController::class ,'create']);
 Route::post('/pengguna/tambah-pengguna',[PenggunaController::class ,'store']);
 Route::get('/edit-pengguna/{id}',[PenggunaController::class ,'edit']);
 Route::post('/edit-pengguna/{id}',[PenggunaController::class ,'update']);
-Route::get('/pengguna/{id}',[PenggunaController::class ,'destroy']);
+Route::delete('/pengguna/{id}', [PenggunaController::class, 'destroy']);
+
 
 //order
 Route::get('/order',[OrderController::class ,'show']);
@@ -100,7 +101,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [UserProfileController::class, 'index']);
     //ongkir
     Route::post('/get-shipping-cost', [userPemesananController::class, 'getShippingCost']);
-
     //pesanan
     Route::get('/pesanan-saya', [UserPesananSayaController::class, 'show']);
     Route::get('/pemesanan/{slug}', [UserPemesananController::class, 'show']);

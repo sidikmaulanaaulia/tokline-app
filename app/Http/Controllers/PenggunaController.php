@@ -10,7 +10,8 @@ use Illuminate\Http\RedirectResponse;
 class PenggunaController extends Controller
 {
     public function show(){
-        $data = User::all();
+        $data = User::orderBy('id', 'desc')->get();
+
         return view('admin.dashboard.pengguna',compact('data'));
     }
 
@@ -65,9 +66,9 @@ class PenggunaController extends Controller
         $request = User::find($id);
         $result = $request->delete();
         if($result){
-            return redirect('/pengguna')->with('success','data berhasil di hapus');
+            return response()->json(['message' => 'Pengguna berhasil dihapus'], 200);
         }else{
-            return redirect('/pengguna')->with('error','data berhasil di hapus');
+            return response()->json(['message' => 'Pengguna gagal'], 404);
         }
 
 }

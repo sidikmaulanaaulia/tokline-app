@@ -300,6 +300,8 @@
         </header>
           @include('admin.layout.sidebar')
         </div>
+        {{-- SWEET ALERT --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
       <!-- Bootstrap tether Core JavaScript -->

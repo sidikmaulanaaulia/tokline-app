@@ -233,11 +233,9 @@
                 data: formData,
                 success: function(response) {
                     alert(response.message);
-                    // Tambahkan logika atau notifikasi ke pengguna di sini
                 },
                 error: function(error) {
                     alert(response.message)
-                    // Tambahkan logika atau notifikasi ke pengguna di sini
                 }
             });
         }

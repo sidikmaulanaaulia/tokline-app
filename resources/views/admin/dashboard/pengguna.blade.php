@@ -6,8 +6,8 @@
         <!-- ============================================================== -->
         <h3 class="card-title text-center">Data Pengguna</h3>
         <a class="btn btn-primary" href="/pengguna/tambah-pengguna"><span class="material-icons">
-            playlist_add
-          </span></a>
+                playlist_add
+            </span></a>
         @if (session('success'))
             <div class="alert alert-success w-25 mt-3" role="alert">
                 {{ session('success') }}
@@ -42,11 +42,12 @@
                                                 <a class="btn btn-success btn-sm text-white"
                                                     href="/edit-pengguna/{{ $item->id }}"><span class="material-icons">
                                                         update
-                                                      </span></a>
-                                                <a class="btn btn-danger btn-sm"
-                                                    href="/pengguna/{{ $item->id }}"><span class="material-icons">
-                                                        delete
-                                                      </span></a>
+                                                </a>
+                                                <form class="delete-form" action="/pengguna/{{ $item->id }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger delete-confirm">Delete</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -75,4 +76,43 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var deleteForms = document.querySelectorAll('.delete-form');
+
+            deleteForms.forEach(function(form) {
+                var deleteButton = form.querySelector('.delete-confirm');
+
+                deleteButton.addEventListener('click', function () {
+                    Swal.fire({
+                        title: 'Apakah anda ingin menghapus?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var url = form.getAttribute('action');
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('DELETE', url, true);
+                            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    window.location.reload();
+                                } else {
+                                    console.error(xhr.responseText);
+                                }
+                            };
+                            xhr.send();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 @endsection
