@@ -13,7 +13,7 @@ class CategoryController extends Controller
         $daftar_kategori = Category::all();
         $category = Category::where('slug', $slug)->first();
         $data = $category->produk;
-        return view('kategori' , compact('data','daftar_kategori'));
+        return view('user.kategori' , compact('data','daftar_kategori'));
 
     }
 }

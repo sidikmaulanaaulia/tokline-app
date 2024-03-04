@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Produk;
 use App\Models\Category;
@@ -10,7 +11,7 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function show(){
         $totalProduk = Produk::count();
         $totalCategory = Category::count();
         $totalPengguna = User::count();

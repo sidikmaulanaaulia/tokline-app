@@ -12,13 +12,13 @@ class HomeController extends Controller
     public function index(){
         $data = Produk::limit(12)->get();
         $category = Category::all();
-        return view('index',compact('data','category'));
+        return view('user.index',compact('data','category'));
     }
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
         $produk = Produk::limit(12)->get();
         $data = Produk::where('nama_produk', 'like', '%'.$searchTerm.'%')->get();
-        return view('searchProduk', compact('data', 'searchTerm','produk'));
+        return view('user.searchProduk', compact('data', 'searchTerm','produk'));
     }
 }

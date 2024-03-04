@@ -28,7 +28,7 @@ class PemesananController extends Controller
             ])->get('https://api.rajaongkir.com/starter/city');
 
             $cities = $response['rajaongkir']['results'];
-        return view('pemesanan' , compact('produk','keranjang','cities'));
+        return view('user.pemesanan' , compact('produk','keranjang','cities'));
     }
 
     public function getShippingCost(Request $request)

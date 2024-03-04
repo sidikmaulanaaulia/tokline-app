@@ -1,30 +1,33 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdukController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\PenggunaController;
-use App\Http\Controllers\PemesananController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\ProdukSizeController;
 
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CobaController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UpdatePasswordController;
+//admin
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProdukController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\PemesananController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TestController;
+use App\Http\Controllers\Admin\ProdukSizeController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\UpdatePasswordController;
+
+//authicate
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\LoginController;
+//user
 use App\Http\Controllers\User\HomeController;
-use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\KeranjangController;
+use App\Http\Controllers\User\DetailProdukController;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 use App\Http\Controllers\User\PemesananController as UserPemesananController;
 use App\Http\Controllers\User\TransaksiController as UserTransaksiController;
 use App\Http\Controllers\User\PesananSayaController as UserPesananSayaController;
 use App\Http\Controllers\User\PemesananDetailController as UserPemesananDetailController;
-use App\Http\Controllers\User\DetailProdukController;
 use App\Http\Controllers\User\CategoryController as UserCategoryController;
 
 /*
@@ -38,9 +41,8 @@ use App\Http\Controllers\User\CategoryController as UserCategoryController;
 |
 */
 Route::middleware(['admin'])->group(function () {
-
-Route::get('/dashboard',[DashboardController::class ,'index']);
-
+//dashboard
+Route::get('/dashboard',[DashboardController::class ,'show']);
 //produk
 Route::get('/produk',[ProdukController::class ,'show']);
 Route::get('/produk/tambah-produk',[ProdukController::class ,'create']);
@@ -58,7 +60,7 @@ Route::post('/edit-kategori/{id}',[CategoryController::class ,'update']);
 Route::get('/hapus-data-kategori/{id}',[CategoryController::class ,'destroy']);
 
 //pengguna
-Route::get('/pengguna',[PenggunaController::class ,'index']);
+Route::get('/pengguna',[PenggunaController::class ,'show']);
 Route::get('/pengguna/tambah-pengguna',[PenggunaController::class ,'create']);
 Route::post('/pengguna/tambah-pengguna',[PenggunaController::class ,'store']);
 Route::get('/edit-pengguna/{id}',[PenggunaController::class ,'edit']);
@@ -70,10 +72,9 @@ Route::get('/order',[OrderController::class ,'show']);
 Route::get('/order-konfirmasi/{id}',[OrderController::class ,'konfirmasiOrder']);
 Route::get('/order-batalkan/{id}',[OrderController::class ,'batalkanOrder']);
 
+//authenticate
 Route::post('/logout',[LogoutController::class ,'logout']);
 
-Route::get('/coba', [CobaController::class, 'index']);
-Route::post('/coba/{id}', [CobaController::class, 'update']);
 Route::post('/profile/ubah-admin', [ProfileController::class, 'update']);
 Route::post('/profile/ubah-password-admin', [ProfileController::class, 'updatePassword']);
 Route::get('/profile-admin', [ProfileController::class, 'index']);
@@ -98,6 +99,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/ubah', [UserProfileController::class, 'update']);
     Route::post('/profile/ubah-password', [UserProfileController::class, 'updatePassword']);
     Route::get('/profile', [UserProfileController::class, 'index']);
+
     //ongkir
     Route::post('/get-shipping-cost', [userPemesananController::class, 'getShippingCost']);
 
@@ -117,8 +119,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/detail-produk/{slug}', [DetailProdukController::class, 'index']);
     Route::post('/login', [LoginController::class, 'authenticate']);
     Route::get('/login', [LoginController::class, 'index'])->name('login');
-    Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/register', [RegisterController::class, 'index']);
+    Route::post('/register', [RegisterController::class, 'store']);
     Route::post('/test', [AuthController::class, 'login']);
 
 

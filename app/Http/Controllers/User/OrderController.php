@@ -30,7 +30,7 @@ class OrderController extends Controller
         );
 
         $snapToken = \Midtrans\Snap::getSnapToken($params);
-        return view('transaksi',['token' => $snapToken]);
+        return view('user.transaksi',['token' => $snapToken]);
             }
 
 

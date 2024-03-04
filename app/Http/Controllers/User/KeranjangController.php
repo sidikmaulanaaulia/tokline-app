@@ -18,7 +18,7 @@ class KeranjangController extends Controller
             $user = Auth::user();
             // Mengambil data keranjang pengguna beserta produk menggunakan relasi
             $keranjangs = Keranjang::with('produk')->where('user_id', $user->id)->get();
-            return view('keranjang', compact('keranjangs'));
+            return view('user.keranjang', compact('keranjangs'));
         }
     }
 
