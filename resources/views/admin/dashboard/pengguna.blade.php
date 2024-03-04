@@ -25,8 +25,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Alamat</th>
-                                        <th>Nomor Telepone</th>
+                                        <th>Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -36,8 +35,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->email }}</td>
-                                            <td>{{ $item->alamat }}</td>
-                                            <td>{{ $item->nomor_telepon }}</td>
+                                            <td>{{ $item->level }}</td>
                                             <td>
                                                 <a class="btn btn-success btn-sm text-white"
                                                     href="/edit-pengguna/{{ $item->id }}"><span class="material-icons">

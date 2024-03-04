@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\UpdatePasswordController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\LoginController;
+
 //user
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\KeranjangController;
@@ -44,20 +45,20 @@ Route::middleware(['admin'])->group(function () {
 //dashboard
 Route::get('/dashboard',[DashboardController::class ,'show']);
 //produk
-Route::get('/produk',[ProdukController::class ,'show']);
-Route::get('/produk/tambah-produk',[ProdukController::class ,'create']);
-Route::post('/produk/tambah-produk',[ProdukController::class ,'store']);
-Route::get('/hapusproduk/{id}',[ProdukController::class ,'destroy']);
-Route::get('/edit/{slug}',[ProdukController::class ,'edit']);
-Route::post('/edit/{id}',[ProdukController::class ,'update']);
+Route::get('/produk',[ProdukController::class ,'show'])->name('produk.show');
+Route::get('/produk-create',[ProdukController::class ,'create'])->name('produk.create');
+Route::post('/produk-store',[ProdukController::class ,'store'])->name('produk.store');
+Route::delete('/produk-delete/{id}',[ProdukController::class ,'destroy'])->name('produk.destroy');
+Route::get('/produk-edit/{slug}',[ProdukController::class ,'edit'])->name('produk.edit');
+Route::post('/produk-update/{id}',[ProdukController::class ,'update'])->name('produk.update');
 
 //kategori
-Route::get('/kategori',[CategoryController::class ,'show']);
-Route::get('/tambah-kategori',[CategoryController::class ,'create']);
-Route::post('/tambah-kategori',[CategoryController::class ,'store']);
-Route::get('/edit-kategori/{slug}',[CategoryController::class ,'edit']);
-Route::post('/edit-kategori/{id}',[CategoryController::class ,'update']);
-Route::get('/hapus-data-kategori/{id}',[CategoryController::class ,'destroy']);
+Route::get('/kategori',[CategoryController::class ,'show'])->name('kategori.show');
+Route::get('/kategori-create',[CategoryController::class ,'create'])->name('kategori.create');
+Route::post('/kategori-store',[CategoryController::class ,'store'])->name('kategori.store');
+Route::get('/edit-kategori/{slug}',[CategoryController::class ,'edit'])->name('kategori.edit');
+Route::post('/edit-kategori/{slug}',[CategoryController::class ,'update'])->name('kategori.update');
+Route::delete('/kategori-delete/{id}',[CategoryController::class ,'destroy'])->name('kategori.destroy');
 
 //pengguna
 Route::get('/pengguna',[PenggunaController::class ,'show']);
@@ -68,9 +69,10 @@ Route::post('/edit-pengguna/{id}',[PenggunaController::class ,'update']);
 Route::get('/pengguna/{id}',[PenggunaController::class ,'destroy']);
 
 //order
-Route::get('/order',[OrderController::class ,'show']);
-Route::get('/order-konfirmasi/{id}',[OrderController::class ,'konfirmasiOrder']);
-Route::get('/order-batalkan/{id}',[OrderController::class ,'batalkanOrder']);
+Route::get('/order',[OrderController::class ,'show'])->name('order.show');
+Route::post('/order-konfirmasi/{id}',[OrderController::class ,'konfirmasiOrder'])->name('order.konfirmasi');
+Route::post('/order-cancel/{id}',[OrderController::class ,'batalkanOrder'])->name('order.cancel');
+Route::get('/order-edit/{id}',[OrderController::class ,'edit'])->name('order.edit');
 
 //authenticate
 Route::post('/logout',[LogoutController::class ,'logout']);

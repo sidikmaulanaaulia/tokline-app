@@ -45,24 +45,14 @@ public function store(Request $request) {
         $produk->category_id = $request->category_id;
         $produk->save();
 
-        return redirect('produk/tambah-produk')->with('success','Data Berhassil Di Tambahkan ');
-    } else {
-        return redirect('produk/tambah-produk')->with('error','Data Berhassil Di Tambahkan ');
+         return redirect()->route('produk.create')->with('success','Sukses');
+        } else {
+            return redirect()->route('produk.create')->with('error','Gagal');
     }
-}
-
-public function destroy($id){
-    $data = Produk::find($id);
-    $imagePath = public_path('storage/uploads/' . $data->gambar); // Path gambar di storage
-    if (file_exists($imagePath)) {
-        unlink($imagePath); // Menghapus gambar dari penyimpanan
-    }
-    $data->delete();
-    return redirect('/produk')->with('success','Data Berhasil Di Delete');
 }
 
 public function edit($slug){
-    $produk = Produk::where('slug',$slug)->first();
+    $produk = Produk::findBySlug($slug);
     $category = Category::all();
     return view('admin.dashboard.editProduk', compact('produk','category'));
 }
@@ -91,13 +81,21 @@ public function update(Request $request, $id){
 
     $result = $produk->update($data);
     if($result){
-
-        return redirect("/edit/{$slug}")->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('produk.edit',$slug)->with('success','Sukses');
     }else{
-
-        return redirect("/edit/{$slug}")->with('error', 'Data gagal');
+        return redirect()->route('produk.edit',$slug)->with('error','Gagal');
     }
 
+}
+
+public function destroy($id){
+    $data = Produk::find($id);
+    $imagePath = public_path('storage/uploads/' . $data->gambar); // Path gambar di storage
+    if (file_exists($imagePath)) {
+        unlink($imagePath); // Menghapus gambar dari penyimpanan
+    }
+    $data->delete();
+    return response()->json(['success' => 'data berhasil di hapus'],200);
 }
 
 

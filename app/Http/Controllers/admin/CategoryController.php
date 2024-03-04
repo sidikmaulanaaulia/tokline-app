@@ -27,9 +27,13 @@ class CategoryController extends Controller
     $kategori = new Category();
     $kategori->nama_kategori = $validatedData['nama_kategori']; // Menggunakan $validatedData
     $kategori->deskripsi_kategori = $validatedData['deskripsi_kategori']; // Menggunakan $validatedData
-    $kategori->save();
+    $result = $kategori->save();
+    if($result){
+        return redirect()->route('kategori.create')->with('success','sukses');
+    }else{
+        return redirect()->route('kategori.create')->with('error','error');
+    }
 
-    return redirect('/tambah-kategori')->with('success', 'Data Berhasil Ditambahkan');
 }
 
 
@@ -39,37 +43,31 @@ public function edit($slug){
 
 }
 
-public function update(Request $request, $id)
+public function update(Request $request, $slug)
 {
-    $category = Category::find($id);
+    $data = Category::findBySlug($slug);
 
-    // Validasi dan pengolahan lainnya
     $validatedData = $request->validate([
         'nama_kategori' => 'required',
         'deskripsi_kategori' => 'required',
     ]);
 
-    $newSlug = Str::slug($request->input('nama_kategori'));
-    $count = 1;
-    while (Category::where('slug', $newSlug)->where('id', '<>', $id)->exists()) {
-        $newSlug = Str::slug($request->input('nama_kategori')) . '-' . $count;
-        $count++;
+    $slug_baru = Str::slug($request->nama_kategori); // pastikan Anda telah mengimpor namespace untuk Str
+    $data->update(['slug' => $slug_baru]);
+    $result = $data->update($request->all());
+    if ($result) {
+        return redirect()->route('kategori.edit',$slug_baru)->with('success','sukses');
+    }else{
+        return redirect()->route('kategori.edit',$slug_baru)->with('error','error');
     }
 
-    $category->nama_kategori = $request->input('nama_kategori');
-    $category->slug = $newSlug;
-    // Setel atribut lainnya sesuai kebutuhan
-
-    $category->save();
-
-    return redirect("edit-kategori/{$newSlug}")->with('success', 'Data berhasil diperbarui');
 }
 
 
 public function destroy($id){
     $data = Category::find($id);
     $data->delete();
-    return redirect('/produk/kategori')->with('success','Data Berhasil Di Hapus');
+    return response()->json(['success' => 'data berhasil di hapus'],200);
 
 }
 

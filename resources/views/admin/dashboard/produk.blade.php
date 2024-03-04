@@ -5,9 +5,9 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
         <h3 class="card-title text-center">Data Produk</h3>
-        <a class="btn btn-primary" href="/produk/tambah-produk"><span class="material-icons">
-            playlist_add
-          </span></a>
+        <a class="btn btn-primary" href="{{ route('produk.create') }}"><span class="material-icons">
+                playlist_add
+            </span></a>
         @if (session('success'))
             <div class="alert alert-success w-25 mt-3" role="alert">
                 {{ session('success') }}
@@ -42,21 +42,26 @@
                                             <td>{{ $item->harga }}</td>
                                             <td>
                                                 <a class="btn btn-warning btn-sm"
-                                                href="/produk-size/{{ $item->id }}">Lihat</a>
+                                                    href="/produk-size/{{ $item->id }}">Lihat</a>
                                             </td>
                                             <td><img src="{{ asset('storage/uploads/' . $item->gambar) }}" width="100"
                                                     height="100"></td>
                                             <td>
-                                                <a class="btn btn-danger btn-sm"
-                                                    href="/hapusproduk/{{ $item->id }}">                                            <span class="material-icons">
+                                                <form class="delete-form" action="{{ route('produk.destroy', $item->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-danger btn-sm delete-confirm">
                                                         <span class="material-icons">
                                                             delete
-                                                          </span></a>
+                                                        </span></button>
+                                                </form>
                                                 <a class="btn btn-success btn-sm text-white mt-3"
-                                                    href="/edit/{{ $item->slug }}">                                            <span class="material-icons">
+                                                    href="{{ route('produk.edit', $item->slug) }}"> <span
+                                                        class="material-icons">
                                                         <span class="material-icons">
                                                             update
-                                                          </span></a>
+                                                        </span></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -84,5 +89,42 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var deleteForms = document.querySelectorAll('.delete-form');
+
+            deleteForms.forEach(function(form) {
+                var deleteButton = form.querySelector('.delete-confirm');
+
+                deleteButton.addEventListener('click', function() {
+                    Swal.fire({
+                        title: 'Apakah anda ingin menghapus?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#3085d6',
+                        confirmButtonText: 'Yes!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            var url = form.getAttribute('action');
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('DELETE', url, true);
+                            xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                            xhr.onload = function() {
+                                if (xhr.status === 200) {
+                                    window.location.reload();
+                                } else {
+                                    console.error(xhr.responseText);
+                                }
+                            };
+                            xhr.send();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 @endsection
-    

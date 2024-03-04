@@ -1,21 +1,29 @@
 @extends('admin.layout.header')
 
 @section('container')
-    <h3 class="card-title text-center mt-3">TAMBAH PRODUK</h3>
-    <form action="/produk/tambah-produk" method="post" enctype="multipart/form-data">
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'error',
+    });
+</script>
+@endif
+
+<h3 class="card-title text-center mt-3">TAMBAH PRODUK</h3>
+<form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container mt-2">
             <a class="btn btn-primary" href="/produk">Kembali</a>
-            @if (session('success'))
-                <div class="alert alert-success w-25 mt-3" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-success w-25 mt-3" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
             <div class="row p-4 border rounded-5">
                 <div class="col-6">
                     <div class="mb-3">
@@ -58,4 +66,5 @@
         </div>
         </div>
     </form>
-@endsection
+    @endsection
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

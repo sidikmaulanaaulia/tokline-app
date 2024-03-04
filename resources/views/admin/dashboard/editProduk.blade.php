@@ -1,21 +1,29 @@
 @extends('admin.layout.header')
 
 @section('container')
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'error',
+    });
+</script>
+@endif
+
     <h3 class="card-title text-center mt-3">EDIT PRODUK</h3>
-    <form action="/edit/{{ $produk->id }}" method="post" enctype="multipart/form-produk">
+    <form action="{{ route('produk.update',$produk->id) }}" method="post" enctype="multipart/form-produk">
         @csrf
         <div class="container mt-2">
-            <a class="btn btn-primary" href="/produk">Kembali</a>
-            @if (session('success'))
-                <div class="alert alert-success w-25 mt-3" role="alert">
-                    {{ session('success') }}
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-success w-25 mt-3" role="alert">
-                    {{ session('error') }}
-                </div>
-            @endif
+            <a class="btn btn-primary" href="{{ route('produk.show') }}">Kembali</a>
             <div class="row p-4 border rounded-5">
                 <div class="col-6">
                     <div class="mb-3">
@@ -60,3 +68,4 @@
         </div>
     </form>
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
