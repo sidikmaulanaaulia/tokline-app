@@ -43,7 +43,7 @@ use App\Http\Controllers\User\CategoryController as UserCategoryController;
 */
 Route::middleware(['admin'])->group(function () {
 //dashboard
-Route::get('/dashboard',[DashboardController::class ,'show']);
+Route::get('/dashboard',[DashboardController::class ,'show'])->name('dashboard.show');
 //produk
 Route::get('/produk',[ProdukController::class ,'show'])->name('produk.show');
 Route::get('/produk-create',[ProdukController::class ,'create'])->name('produk.create');
@@ -61,21 +61,20 @@ Route::post('/edit-kategori/{slug}',[CategoryController::class ,'update'])->name
 Route::delete('/kategori-delete/{id}',[CategoryController::class ,'destroy'])->name('kategori.destroy');
 
 //pengguna
-Route::get('/pengguna',[PenggunaController::class ,'show']);
-Route::get('/pengguna/tambah-pengguna',[PenggunaController::class ,'create']);
-Route::post('/pengguna/tambah-pengguna',[PenggunaController::class ,'store']);
-Route::get('/edit-pengguna/{id}',[PenggunaController::class ,'edit']);
-Route::post('/edit-pengguna/{id}',[PenggunaController::class ,'update']);
-Route::get('/pengguna/{id}',[PenggunaController::class ,'destroy']);
+Route::get('/pengguna',[PenggunaController::class ,'show'])->name('pengguna.show');
+Route::get('/pengguna-create',[PenggunaController::class ,'create'])->name('pengguna.create');
+Route::post('/pengguna-store',[PenggunaController::class ,'store'])->name('pengguna.store');
+Route::get('/pengguna-edit/{id}',[PenggunaController::class ,'edit'])->name('pengguna.edit');
+Route::post('/pengguna-update/{id}',[PenggunaController::class ,'update'])->name('pengguna.update');
+Route::delete('/pengguna-delete/{id}',[PenggunaController::class ,'destroy'])->name('pengguna.destroy');
 
 //order
 Route::get('/order',[OrderController::class ,'show'])->name('order.show');
 Route::post('/order-konfirmasi/{id}',[OrderController::class ,'konfirmasiOrder'])->name('order.konfirmasi');
 Route::post('/order-cancel/{id}',[OrderController::class ,'batalkanOrder'])->name('order.cancel');
-Route::get('/order-edit/{id}',[OrderController::class ,'edit'])->name('order.edit');
 
 //authenticate
-Route::post('/logout',[LogoutController::class ,'logout']);
+Route::post('/logout',[LogoutController::class ,'logout'])->name('logout');
 
 Route::post('/profile/ubah-admin', [ProfileController::class, 'update']);
 Route::post('/profile/ubah-password-admin', [ProfileController::class, 'updatePassword']);
@@ -83,11 +82,11 @@ Route::get('/profile-admin', [ProfileController::class, 'index']);
 Route::get('/detail-stok/{id}', [ProdukController::class, 'stokUkuran']);
 
 //stok size produk
-Route::get('/produk-size/{id}', [ProdukSizeController::class, 'show']);
-Route::get('/tambah-produk-size/{id}', [ProdukSizeController::class, 'create']);
-Route::post('/produk-size/{id}', [ProdukSizeController::class, 'store']);
-Route::get('/edit-produk-size/{id}', [ProdukSizeController::class, 'edit']);
-Route::post('/update-produk-size/{id}', [ProdukSizeController::class, 'update']);
+Route::get('/produk-size/{id}', [ProdukSizeController::class, 'show'])->name('produkSize.show');
+Route::get('/tambah-produk-size/{id}', [ProdukSizeController::class, 'create'])->name('produkSize.create');
+Route::post('/produk-size/{id}', [ProdukSizeController::class, 'store'])->name('produkSize.store');
+Route::get('/edit-produk-size/{id}', [ProdukSizeController::class, 'edit'])->name('produkSize.edit');
+Route::post('/update-produk-size/{id}', [ProdukSizeController::class, 'update'])->name('produkSize.update');
 
 });
 
@@ -110,7 +109,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pemesanan/{slug}', [UserPemesananController::class, 'show']);
     Route::post('/pemesanan/{slug}', [UserPemesananController::class, 'store']);
     Route::post('/pesanan-saya', [UserPesananSayaController::class, 'detailPesanan']);
-    Route::post('/logout',[LogoutController::class ,'logout']);
+    Route::post('/logout',[LogoutController::class ,'logout'])->name('logout');
 
 });
     //detail
@@ -120,7 +119,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kategori/{slug}', [UserCategoryController::class,  'index']);
     Route::get('/detail-produk/{slug}', [DetailProdukController::class, 'index']);
     Route::post('/login', [LoginController::class, 'authenticate']);
-    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::get('/login', [LoginController::class, 'show'])->name('login');
     Route::get('/register', [RegisterController::class, 'index']);
     Route::post('/register', [RegisterController::class, 'store']);
     Route::post('/test', [AuthController::class, 'login']);

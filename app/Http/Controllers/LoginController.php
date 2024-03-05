@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(){
+    public function show(){
         return view('authenticat.login');
     }
 
@@ -21,7 +21,7 @@ class LoginController extends Controller
 
         if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
         if (auth()->user()->level === 'admin') {
-            return redirect('/dashboard');
+             return redirect()->route('dashboard.show');
         } else {
              return redirect('/');
         }

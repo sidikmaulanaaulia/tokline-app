@@ -35,7 +35,6 @@
                                         <th>Status Pembayaran</th>
                                         <th>Status Pesanan</th>
                                         <th>Konfirmasi</th>
-                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

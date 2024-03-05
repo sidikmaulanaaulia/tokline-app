@@ -27,22 +27,4 @@ class OrderController extends Controller
 
     }
 
-    public function edit($id){
-        $data = Order::find($id);
-        return view('admin.dashboard.editOrder',compact('data'));
-
-    }
-
-    public function update(){
-
-    }
-
-    public function destroy($id){
-
-        $data = Order::find($id);
-        $data->delete();
-        return response()->json(['success' => 'data berhasil di hapus'],200);
-
-    }
-
 }

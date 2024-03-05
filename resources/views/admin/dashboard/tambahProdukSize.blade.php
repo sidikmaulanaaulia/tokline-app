@@ -3,10 +3,26 @@
 @section('container')
 
 
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+    });
+</script>
+@endif
 
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'error',
+    });
+</script>
+@endif
 
 <div class="container">
-    <form action="/produk-size/{{ $produk->id }}" method="post">
+    <form action="{{ route('produkSize.store',$produk->id) }}" method="POST">
         @csrf
                 <div class="mb-3">
                     <label for="size_s" class="col-sm-3 col-form-label">Size S</label>
@@ -44,6 +60,5 @@
             </form>
         </div>
 
-
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 @endsection

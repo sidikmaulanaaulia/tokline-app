@@ -8,7 +8,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="/dashboard"
+                  href="{{ route('dashboard.show') }}"
                   aria-expanded="false"
                   ><i class="mdi mdi-view-dashboard"></i
                   ><span class="hide-menu">Dashboard</span></a
@@ -17,7 +17,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="/produk"
+                  href="{{ route('produk.show') }}"
                   aria-expanded="false"
                   ><i class="mdi mdi-bookmark-plus
                   "></i
@@ -27,7 +27,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="/kategori"
+                  href="{{ route('kategori.show') }}"
                   aria-expanded="false"
                   ><i class="mdi mdi-chart-bar"></i
                   ><span class="hide-menu">Kategori</span></a
@@ -36,7 +36,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="/pengguna"
+                  href="{{ route('pengguna.show') }}"
                   aria-expanded="false"
                   ><i class="mdi mdi-account"></i
                   ><span class="hide-menu">Pengguna</span></a
@@ -45,7 +45,7 @@
               <li class="sidebar-item">
                 <a
                   class="sidebar-link waves-effect waves-dark sidebar-link"
-                  href="/order"
+                  href="{{ route('order.show') }}"
                   aria-expanded="false"
                   ><i class="mdi mdi-cart"></i
                   ><span class="hide-menu">Order</span></a

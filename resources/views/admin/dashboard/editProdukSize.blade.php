@@ -1,8 +1,24 @@
 @extends('admin.layout.header')
 
 @section('container')
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+    });
+</script>
+@endif
 
-<form action="/update-produk-size/{{ $produkSize->id }}" method="POST">
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'error',
+    });
+</script>
+@endif
+<form action="{{ route('produkSize.update',$produkSize->id) }}" method="POST">
     @csrf
     <div class="mb-3">
         <div>
@@ -29,3 +45,4 @@
 </form>
 
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

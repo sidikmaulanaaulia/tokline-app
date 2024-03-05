@@ -42,7 +42,7 @@
                                             <td>{{ $item->harga }}</td>
                                             <td>
                                                 <a class="btn btn-warning btn-sm"
-                                                    href="/produk-size/{{ $item->id }}">Lihat</a>
+                                                    href="{{ route('produkSize.show',$item->id)}}">Lihat</a>
                                             </td>
                                             <td><img src="{{ asset('storage/uploads/' . $item->gambar) }}" width="100"
                                                     height="100"></td>
@@ -125,6 +125,5 @@
             });
         });
     </script>
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 @endsection
