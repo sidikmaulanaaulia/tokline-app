@@ -62,7 +62,6 @@ Route::post('/edit-kategori/{slug}',[CategoryController::class ,'update'])->name
 Route::delete('/kategori-delete/{id}',[CategoryController::class ,'destroy'])->name('kategori.destroy');
 
 //pengguna
-
 Route::get('/pengguna',[PenggunaController::class ,'show'])->name('pengguna.show');
 Route::get('/pengguna-create',[PenggunaController::class ,'create'])->name('pengguna.create');
 Route::post('/pengguna-store',[PenggunaController::class ,'store'])->name('pengguna.store');
