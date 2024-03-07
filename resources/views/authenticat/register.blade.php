@@ -13,7 +13,7 @@
         {{ session('error') }}
     </div>
     @endif
-<form action="/register" method="post">
+<form action="{{ route('register.store') }}" method="post">
         @csrf
   <section class="vh-100">
    <div class="container py-5 h-100">

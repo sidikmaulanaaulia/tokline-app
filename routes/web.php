@@ -16,9 +16,10 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UpdatePasswordController;
 
 //authicate
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LogoutController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Authenticate\RegisterController;
+use App\Http\Controllers\Authenticate\LogoutController;
+use App\Http\Controllers\Authenticate\LoginController;
+use App\Http\Controllers\Authenticate\ForgotController;
 
 //user
 use App\Http\Controllers\User\HomeController;
@@ -92,10 +93,10 @@ Route::post('/update-produk-size/{id}', [ProdukSizeController::class, 'update'])
 
 Route::middleware(['auth'])->group(function () {
     //keranjang
-    Route::get('/keranjang', [KeranjangController::class, 'show']);
-    Route::get('/keranjang/{slug}', [KeranjangController::class, 'destroy']);
+    Route::get('/keranjang', [KeranjangController::class, 'show'])->name('keranjang.show');
+    Route::delete('/keranjang/{id}', [KeranjangController::class, 'destroy'])->name('keranjang.destroy');
     //deatail produk
-    Route::post('/detail-produk/{slug}', [DetailProdukController::class, 'storeProduk']);
+    Route::post('/detail-produk/{slug}', [DetailProdukController::class, 'store'])->name('detail.store');
     //profile user
     Route::post('/profile/ubah', [UserProfileController::class, 'update']);
     Route::post('/profile/ubah-password', [UserProfileController::class, 'updatePassword']);
@@ -103,26 +104,30 @@ Route::middleware(['auth'])->group(function () {
 
     //ongkir
     Route::post('/get-shipping-cost', [userPemesananController::class, 'getShippingCost']);
-
     //pesanan
-    Route::get('/pesanan-saya', [UserPesananSayaController::class, 'show']);
-    Route::get('/pemesanan/{slug}', [UserPemesananController::class, 'show']);
-    Route::post('/pemesanan/{slug}', [UserPemesananController::class, 'store']);
-    Route::post('/pesanan-saya', [UserPesananSayaController::class, 'detailPesanan']);
+    Route::get('/pesanan-saya', [UserPesananSayaController::class, 'show'])->name('pesanan.show');
+    Route::post('/pesanan-saya', [UserPesananSayaController::class, 'detailPesanan'])->name('pesanan.detailPesanan');
+
+    Route::get('/pemesanan/{slug}', [UserPemesananController::class, 'show'])->name('pemesanan.show');
+    Route::post('/pemesanan/{slug}', [UserPemesananController::class, 'store'])->name('pemesanan.store');
     Route::post('/logout',[LogoutController::class ,'logout'])->name('logout');
 
 });
-    //detail
-    Route::get('/detail-produk/{slug}', [DetailProdukController::class, 'index']);
-    Route::get('/', [HomeController::class, 'index']);
-    Route::post('/produk', [HomeController::class, 'search']);
+    //guest
+    Route::get('/detail-produk/{slug}', [DetailProdukController::class, 'index'])->name('detail.show');
+    Route::get('/', [HomeController::class, 'show'])->name('home.show');
+    Route::post('/produk', [HomeController::class, 'search'])->name('search');
     Route::get('/kategori/{slug}', [UserCategoryController::class,  'index']);
-    Route::get('/detail-produk/{slug}', [DetailProdukController::class, 'index']);
-    Route::post('/login', [LoginController::class, 'authenticate']);
-    Route::get('/login', [LoginController::class, 'show'])->name('login');
-    Route::get('/register', [RegisterController::class, 'index']);
-    Route::post('/register', [RegisterController::class, 'store']);
-    Route::post('/test', [AuthController::class, 'login']);
+    Route::get('/login', [LoginController::class, 'show'])->name('login.show');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+    Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+    //for got password
+    Route::get('/forgot-password',[ForgotController::class,'request'])->middleware('guest')->name('password.request');
+    Route::post('/forgot-password',[ForgotController::class,'email'])->middleware('guest')->name('password.email');
+    Route::get('/reset-password/{token}',[ForgotController::class,'reset'])->middleware('guest')->name('password.reset');
+    Route::post('/reset-password',[ForgotController::class,'update'])->middleware('guest')->name('password.update');
 
 
 

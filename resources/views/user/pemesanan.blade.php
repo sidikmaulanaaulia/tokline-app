@@ -3,7 +3,7 @@
 @section('container')
 
     <div class="container mt-5">
-        <form action="/pemesanan/{{ $produk->id }}" method="POST" >
+        <form action="{{ route('pemesanan.store',$produk->id) }}" method="POST" >
             @csrf
             <div class="">
                 <div>

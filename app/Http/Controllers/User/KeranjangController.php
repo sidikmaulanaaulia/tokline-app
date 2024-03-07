@@ -24,8 +24,12 @@ class KeranjangController extends Controller
 
     public function destroy($id){
         $data = Keranjang::find($id);
-         $data->delete();
-         return redirect("/keranjang")->with('success','1 Produk Telah Di hapus');
+         $result = $data->delete();
+         if($result){
+             return response()->json(['success' => 'sukse'],200);
+            }else{
+             return response()->json(['error' => 'gagal'],200);
+         }
 
     }
 

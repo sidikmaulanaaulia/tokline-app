@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Authenticate;
+
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -11,6 +13,6 @@ class LogoutController extends Controller
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
-    return redirect()->route('login');
+    return redirect()->route('home.show');
     }
 }

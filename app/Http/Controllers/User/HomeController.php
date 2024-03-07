@@ -9,7 +9,7 @@ use App\Models\Category;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function show(){
         $data = Produk::limit(12)->get();
         $category = Category::all();
         return view('user.index',compact('data','category'));

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Authenticate;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -9,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 
 class RegisterController extends Controller
 {
-    public function index(){
+    public function show(){
         return view('authenticat.register');
     }
 

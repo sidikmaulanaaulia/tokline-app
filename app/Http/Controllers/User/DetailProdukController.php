@@ -29,18 +29,18 @@ public function index($slug)
     }
 
     $produkTerkait = Produk::where('category_id', $kategori->id)
-        ->where('slug', '<>', $slug) // Exclude the current product
+        ->where('slug', '<>', $slug)
         ->get();
 
         $produkSize = Produk_size::where('produk_id' , $produk->id)->first();
 
-    return view('detailProduk', compact('user.produk', 'produkTerkait','produkSize'));
+    return view('user.detailProduk', compact('produk','produkTerkait','produkSize'));
 
 
 }
 
 
-    public function storeProduk(Request $request ,$slug){
+    public function store(Request $request ,$slug){
         //proses beli langsung
          if ($request->input('action') == 'buy_now') {
             $produkSize = Produk_size::where('produk_id',$request->produk_id)->first();
