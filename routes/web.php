@@ -62,22 +62,13 @@ Route::post('/edit-kategori/{slug}',[CategoryController::class ,'update'])->name
 Route::delete('/kategori-delete/{id}',[CategoryController::class ,'destroy'])->name('kategori.destroy');
 
 //pengguna
-<<<<<<< HEAD
-Route::get('/pengguna',[PenggunaController::class ,'show']);
-Route::get('/pengguna/tambah-pengguna',[PenggunaController::class ,'create']);
-Route::post('/pengguna/tambah-pengguna',[PenggunaController::class ,'store']);
-Route::get('/edit-pengguna/{id}',[PenggunaController::class ,'edit']);
-Route::post('/edit-pengguna/{id}',[PenggunaController::class ,'update']);
-Route::delete('/pengguna/{id}', [PenggunaController::class, 'destroy']);
 
-=======
 Route::get('/pengguna',[PenggunaController::class ,'show'])->name('pengguna.show');
 Route::get('/pengguna-create',[PenggunaController::class ,'create'])->name('pengguna.create');
 Route::post('/pengguna-store',[PenggunaController::class ,'store'])->name('pengguna.store');
 Route::get('/pengguna-edit/{id}',[PenggunaController::class ,'edit'])->name('pengguna.edit');
 Route::post('/pengguna-update/{id}',[PenggunaController::class ,'update'])->name('pengguna.update');
 Route::delete('/pengguna-delete/{id}',[PenggunaController::class ,'destroy'])->name('pengguna.destroy');
->>>>>>> modi
 
 //order
 Route::get('/order',[OrderController::class ,'show'])->name('order.show');
