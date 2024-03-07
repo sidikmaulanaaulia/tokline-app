@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -31,10 +32,10 @@ class PenggunaController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']); // Mengenkripsi password sebelum disimpan
         $result = User::create($validatedData);
         if($result){
-            return redirect('/pengguna/tambah-pengguna')->with('success','Berhasil Menambahkan Data');
+           return redirect()->route('pengguna.create')->with('success','Sukses');
 
         }else{
-            return redirect('/pengguna/tambah-pengguna')->with('error','Gagal Menambahkan Data');
+            return redirect()->route('pengguna.create')->with('error','Gagal');
         }
     }
 
@@ -56,9 +57,9 @@ class PenggunaController extends Controller
 
        $result = $data->update($validatedData);
         if($result){
-            return redirect("/edit-pengguna/{$id}")->with('success','Data Berhasil Di Tambahkan');
+            return redirect()->route('pengguna.edit',$id)->with('success','sukses');
         }else{
-            return redirect("/edit-pengguna/{$id}")->with('error','Data Berhasil Di Tambahkan');
+            return redirect()->route('pengguna.edit',$id)->with('error','Gagal');
         }
     }
 
@@ -66,9 +67,15 @@ class PenggunaController extends Controller
         $request = User::find($id);
         $result = $request->delete();
         if($result){
+<<<<<<< HEAD:app/Http/Controllers/PenggunaController.php
             return response()->json(['message' => 'Pengguna berhasil dihapus'], 200);
         }else{
             return response()->json(['message' => 'Pengguna gagal'], 404);
+=======
+            return response()->json(['success'=>'sukses'],200);
+        }else{
+            return response()->json(['error'=>'error'],400);
+>>>>>>> modi:app/Http/Controllers/admin/PenggunaController.php
         }
 
 }

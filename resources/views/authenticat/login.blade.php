@@ -40,7 +40,7 @@
                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
                <label class="form-check-label" for="form1Example3"> Remember me </label>
              </div>
-             <a href="#!">Forgot password?</a>
+             <a href="{{ route('password.request') }}">Forgot password?</a>
            </div>
            <!-- Submit button -->
            <button type="submit" class="btn btn-primary btn-lg btn-block" name="submit">Login</button>

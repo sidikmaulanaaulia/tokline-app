@@ -43,7 +43,7 @@
             </form>
         </div>
         <div class="col-md-4 border pt-5 pr-3 pl-3">
-            <form method="POST" action="/detail-produk/{{ $produk->slug }}">
+            <form method="POST" action=" {{ route('detail.store',$produk->slug) }}">
                 @csrf
                 <p class="fs-4 opacity-50">Silahkan Pilih Variant</p>
                 @if ($produkSize)

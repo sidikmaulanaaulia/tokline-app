@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\produk;
 use App\Models\produk_size;
@@ -37,9 +38,13 @@ class ProdukSizeController extends Controller
         $produk_size->size_l  = $request->size_l;
         $produk_size->size_xl  = $request->size_xl;
 
-        $produk_size->save();
+        $result = $produk_size->save();
+        if ($result) {
+            return redirect()->route('produkSize.show',$id)->with('success','sukses');
+        }else{
+            return redirect()->route('produkSize.show',$id)->with('error','gagal');
+        }
 
-        return redirect('/produk')->with('success', 'Ukuran berhasil ditambahkan.');
     }
 
 
@@ -63,7 +68,7 @@ class ProdukSizeController extends Controller
         $produkSize = produk_size::findOrFail($id);
         $produk_id = $produkSize->produk_id;
         $produkSize->update($data);
-        return redirect("produk-size/{$produk_id}")->with('success','Berhasil di Ubah');
+        return redirect()->route('produkSize.edit',$produk_id)->with('success','sukses');
 
     }
 

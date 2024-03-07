@@ -22,7 +22,8 @@
                 </thead>
                 <tbody>
                     @foreach($data as $item)
-                    <form action="/pesanan-detail" method="POST">
+                    <form action="{{ route('pesanan.detailPesanan') }}" method="post">
+                        @csrf
                     <tr>
                         <td><img style="width: 10rem;" src="{{ asset('storage/uploads/' . $item->produk->gambar) }}"
                             class="card-img-top" alt="..."></td>

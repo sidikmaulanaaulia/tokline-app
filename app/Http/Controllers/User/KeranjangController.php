@@ -18,14 +18,18 @@ class KeranjangController extends Controller
             $user = Auth::user();
             // Mengambil data keranjang pengguna beserta produk menggunakan relasi
             $keranjangs = Keranjang::with('produk')->where('user_id', $user->id)->get();
-            return view('keranjang', compact('keranjangs'));
+            return view('user.keranjang', compact('keranjangs'));
         }
     }
 
     public function destroy($id){
         $data = Keranjang::find($id);
-         $data->delete();
-         return redirect("/keranjang")->with('success','1 Produk Telah Di hapus');
+         $result = $data->delete();
+         if($result){
+             return response()->json(['success' => 'sukse'],200);
+            }else{
+             return response()->json(['error' => 'gagal'],200);
+         }
 
     }
 

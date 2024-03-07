@@ -75,9 +75,9 @@
                 @else
                     <form class="d-flex gap-3" style="margin-left: 50px" role="search">
                         <button class="btn btn-primary" type="submit"><a class="text-white text-decoration-none"
-                                href="/login">Masuk</a></button>
+                                href="{{ route('login.show')}}">Masuk</a></button>
                         <button class="btn btn-outline-primary" type="submit"><a class=" text-decoration-none"
-                                href="/register">Daftar</a></button>
+                                href="{{ route('register.show') }}">Daftar</a></button>
                     </form>
                 @endauth
             </div>

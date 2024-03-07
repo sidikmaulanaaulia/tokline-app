@@ -32,7 +32,7 @@ class PesananSayaController extends Controller
               ->orderBy('id', 'desc')
               ->get();
 
-        return view('test',compact('belumBayar','orderDikirim','orderDibatalkan','orderDiproses'));
+        return view('user.riwayatPesanan',compact('belumBayar','orderDikirim','orderDibatalkan','orderDiproses'));
     }
 
     public function detailPesanan(Request $request)
@@ -60,7 +60,7 @@ class PesananSayaController extends Controller
             );
 
             $snapToken = \Midtrans\Snap::getSnapToken($params);
-            return view('pesananDetail',['token' => $snapToken,'order' => $order]);
+            return view('user.pesananDetail',['token' => $snapToken,'order' => $order]);
     }
 
     public function callback(Request $request)

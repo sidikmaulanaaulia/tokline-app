@@ -1,11 +1,29 @@
 @extends('admin.layout.header')
 @section('container')
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
+        @if (session('success'))
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                });
+            </script>
+        @endif
+
+        @if (session('error'))
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'error',
+                });
+            </script>
+        @endif
         <h3 class="card-title text-center">Data Pengguna</h3>
+<<<<<<< HEAD
         <a class="btn btn-primary" href="/pengguna/tambah-pengguna"><span class="material-icons">
+=======
+        <a class="btn btn-primary" href="{{ route('pengguna.create') }}"><span class="material-icons">
+>>>>>>> modi
                 playlist_add
             </span></a>
         @if (session('success'))
@@ -25,8 +43,7 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Alamat</th>
-                                        <th>Nomor Telepone</th>
+                                        <th>Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -36,18 +53,31 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->email }}</td>
-                                            <td>{{ $item->alamat }}</td>
-                                            <td>{{ $item->nomor_telepon }}</td>
+                                            <td>{{ $item->level }}</td>
                                             <td>
                                                 <a class="btn btn-success btn-sm text-white"
-                                                    href="/edit-pengguna/{{ $item->id }}"><span class="material-icons">
+                                                    href="{{ route('pengguna.edit', $item->id) }}"><span
+                                                        class="material-icons">
                                                         update
+<<<<<<< HEAD
                                                 </a>
                                                 <form class="delete-form" action="/pengguna/{{ $item->id }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="btn btn-danger delete-confirm">Delete</button>
                                                 </form>
+=======
+                                                    </span></a>
+                                                    <form class="delete-form" action="{{ route('pengguna.destroy', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-danger btn-sm delete-confirm">
+                                                            <span class="material-icons">
+                                                                delete
+                                                            </span></button>
+                                                    </form>
+>>>>>>> modi
                                             </td>
                                         </tr>
                                     @endforeach
@@ -77,15 +107,24 @@
     <!-- ============================================================== -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+>>>>>>> modi
             var deleteForms = document.querySelectorAll('.delete-form');
 
             deleteForms.forEach(function(form) {
                 var deleteButton = form.querySelector('.delete-confirm');
 
+<<<<<<< HEAD
                 deleteButton.addEventListener('click', function () {
+=======
+                deleteButton.addEventListener('click', function() {
+>>>>>>> modi
                     Swal.fire({
                         title: 'Apakah anda ingin menghapus?',
                         icon: 'warning',
@@ -99,7 +138,11 @@
                             var xhr = new XMLHttpRequest();
                             xhr.open('DELETE', url, true);
                             xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+<<<<<<< HEAD
                             xhr.onload = function () {
+=======
+                            xhr.onload = function() {
+>>>>>>> modi
                                 if (xhr.status === 200) {
                                     window.location.reload();
                                 } else {
@@ -113,6 +156,9 @@
             });
         });
     </script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> modi
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 @endsection

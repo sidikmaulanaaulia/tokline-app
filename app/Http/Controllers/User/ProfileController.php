@@ -14,7 +14,7 @@ class ProfileController extends Controller
         if (Auth::check()) {
             $user = Auth::user();
             $user = User::where('id', $user->id)->first();
-            return view('profile',compact('user'));
+            return view('user.profile',compact('user'));
         }
     }
 

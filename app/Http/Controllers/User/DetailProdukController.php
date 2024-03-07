@@ -16,35 +16,31 @@ class DetailProdukController extends Controller
 {
 public function index($slug)
 {
-    // Temukan produk berdasarkan ID
     $produk = Produk::where('slug', $slug)->first();
 
     if (!$produk) {
         return abort(404);
     }
 
-    // Ambil kategori dari produk menggunakan relasi Eloquent
     $kategori = $produk->category;
 
     if (!$kategori) {
-        // Handle the case where the product does not have a category
         return abort(404);
     }
 
-    // Ambil produk terkait dari kategori yang sama
     $produkTerkait = Produk::where('category_id', $kategori->id)
-        ->where('slug', '<>', $slug) // Exclude the current product
+        ->where('slug', '<>', $slug)
         ->get();
 
         $produkSize = Produk_size::where('produk_id' , $produk->id)->first();
 
-    return view('detailProduk', compact('produk', 'produkTerkait','produkSize'));
+    return view('user.detailProduk', compact('produk','produkTerkait','produkSize'));
 
 
 }
 
 
-    public function storeProduk(Request $request ,$slug){
+    public function store(Request $request ,$slug){
         //proses beli langsung
          if ($request->input('action') == 'buy_now') {
             $produkSize = Produk_size::where('produk_id',$request->produk_id)->first();

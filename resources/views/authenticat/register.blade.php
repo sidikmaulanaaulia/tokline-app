@@ -2,14 +2,19 @@
 @extends('authenticat.layout.header')
 
 @section('container')
-<form action="" method="post">
-    @csrf
-    @if (session('error'))
+
+@if (session('success'))
+    <div class="alert alert-success text-center" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
+@if (session('error'))
     <div class="alert alert-danger text-center" role="alert">
         {{ session('error') }}
     </div>
-    </div>
     @endif
+<form action="{{ route('register.store') }}" method="post">
+        @csrf
   <section class="vh-100">
    <div class="container py-5 h-100">
      <div class="row d-flex align-items-center justify-content-center h-100">

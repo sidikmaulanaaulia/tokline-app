@@ -1,31 +1,39 @@
 @extends('admin.layout.header')
 
 @section('container')
+@if(session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+    });
+</script>
+@endif
+
+@if(session('error'))
+<script>
+    Swal.fire({
+        icon: 'error',
+        title: 'error',
+    });
+</script>
+@endif
+
  <h3 class="card-title text-center mt-3">TAMBAH PENGGUNA</h3>
-  <form action="/pengguna/tambah-pengguna" method="post" enctype="multipart/form-data">
+  <form action="{{ route('pengguna.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="container mt-2">
-      <a class="btn btn-primary" href="/pengguna">Kembali</a>
-      @if (session('success'))
-      <div class="alert alert-success w-25 mt-3" role="alert">
-          {{ session('success') }}
-        </div>
-      @endif
-      @if (session('error'))
-      <div class="alert alert-success w-25 mt-3" role="alert">
-        {{ session('error') }}
-        </div>
-      @endif
+      <a class="btn btn-primary" href="{{ route('pengguna.show') }}">Kembali</a>
       <div class="row p-4 border rounded-5">
         <div class="col-6">
           <div class="mb-3">
             <label for="formGroupExampleInput1" class="form-label">Nama</label>
             <input type="text" class="form-control form-control-sm" name="nama" id="formGroupExampleInput1" placeholder="Nama" required>
-          </div>         
+          </div>
           <div class="mb-3">
             <label for="formGroupExampleInput0" class="form-label">Password</label>
             <input type="password" class="form-control form-control-sm" name="password" id="formGroupExampleInput1" placeholder="Password" required>
-          </div>         
+          </div>
           <div class="mb-3">
             <label for="formGroupExampleInput2" class="form-label">Email</label>
             <input type="email" class="form-control form-control-sm " name="email" id="formGroupExampleInput2" placeholder="Email" required>
@@ -45,3 +53,4 @@
   </div>
 </form>
 @endsection
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

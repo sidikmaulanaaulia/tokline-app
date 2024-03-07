@@ -6,14 +6,14 @@
         <!-- ============================================================== -->
         <h3 class="card-title text-center">Data Order</h3>
         @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Success!',
-                text: '{{ session('success') }}',
-            });
-        </script>
-    @endif
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: '{{ session('success') }}',
+                });
+            </script>
+        @endif
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -34,7 +34,7 @@
                                         <th>Tanggal Pesanan</th>
                                         <th>Status Pembayaran</th>
                                         <th>Status Pesanan</th>
-                                        <th>Aksi</th>
+                                        <th>Konfirmasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,26 +50,34 @@
                                             <td>Rp.{{ $item->total }}</td>
                                             <td>Rp.{{ $item->tgl_pesanan }}</td>
                                             @if ($item->status == 'Unpaid')
-                                            <td>
-                                                <p class="card-text text-danger">{{ $item->status }}</p>
-                                            </td>
+                                                <td>
+                                                    <p class="card-text text-danger">{{ $item->status }}</p>
+                                                </td>
                                             @else
-                                            <td>
-                                                <p class="card-text text-success">{{ $item->status }}</p>
-                                            </td>
+                                                <td>
+                                                    <p class="card-text text-success">{{ $item->status }}</p>
+                                                </td>
                                             @endif
                                             @if ($item->status_pesanan == 'Diproses')
-                                            <td>
-                                                <p class="card-text text-warning">{{ $item->status_pesanan }}</p>
-                                            </td>
+                                                <td>
+                                                    <p class="card-text text-warning">{{ $item->status_pesanan }}</p>
+                                                </td>
                                             @else
-                                            <td>
-                                                <p class="card-text text-info">{{ $item->status_pesanan }}</p>
-                                            </td>
+                                                <td>
+                                                    <p class="card-text text-info">{{ $item->status_pesanan }}</p>
+                                                </td>
                                             @endif
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="/order-konfirmasi/{{ $item->id }}">Konfirmasi Pesanan</a>
-                                                <a class="btn btn-danger btn-sm mt-3" href="/order-batalkan{{ $item->id }}">Batalkan Pesanan</a>
+                                                <form action="{{ route('order.konfirmasi', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary btn-sm">Konfirmasi Pesanan</button>
+                                                </form>
+                                                <form action="{{ route('order.cancel', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger btn-sm">Batalkan Pesanan</button>
+                                                </form>
+                                                </td>
+                                            <td>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -96,6 +104,5 @@
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     </div>
-
 @endsection
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
